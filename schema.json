@@ -1,0 +1,76 @@
+{
+  "description": "JSON schema for ThreadScript configuration files.",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "description": "Metadata required to generate buildinfo files.",
+      "type": "object",
+      "properties": {
+        "url": {
+          "description": "A unique URL to associate the project with",
+          "type": "string",
+          "format": "uri"
+        },
+        "description": {
+          "description": "A short description about this project.",
+          "type": "string"
+        },
+        "version": {
+          "description": "Version of this project's source code.",
+          "type": "string"
+        }
+      },
+      "required": ["url", "version"]
+    },
+    "files": {
+      "description": "Configure the files of this project.",
+      "type": "object",
+      "properties": {
+        "sourceDir": {
+          "description": "Directory where the source code of the project lives.",
+          "type": "string"
+        },
+        "buildDir": {
+          "description": "Directory where the compiled output should go.",
+          "type": "string"
+        },
+        "include": {
+          "description": "Specifies the files that should be compiled.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "exclude": {
+          "description": "Specifies the files that should not be compiled.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": ["sourceDir", "buildDir"]
+    },
+    "compilerInfo": {
+      "description": "Defines the behaviour of the ThreadScript compiler.",
+      "type": "object",
+      "properties": {
+        "outputTarget": {
+          "description": "Set the target of the output emitted by the compiler.",
+          "type": "string",
+          "anyOf": [
+            {
+              "enum": [
+                "JS:ES6"
+              ]
+            }
+          ]
+        }
+      },
+      "required": ["outputTarget"]
+    }
+  },
+  "required": ["metadata", "files"]
+}
