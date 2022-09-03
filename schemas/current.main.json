@@ -1,0 +1,83 @@
+{
+  "$id": "/schemas/current.main.json",
+  "description": "JSON schema for ThreadScript configuration files",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "description": "Metadata required to generate .buildinfo files",
+      "type": "object",
+      "properties": {
+        "url": {
+          "description": "Unique URL to associate the project with",
+          "type": "string",
+          "format": "uri"
+        },
+        "description": {
+          "description": "A small description for the project",
+          "type": "string"
+        },
+        "version": {
+          "description": "The version of the project, required when the project needs versioning",
+          "type": "string"
+        },
+        "tree": {
+          "description": "File tree of the project",
+          "type": "object",
+          "properties": {
+            "sourceDir": {
+              "description": "Directory where the source code lives",
+              "type": "string"
+            },
+            "buildDir": {
+              "description": "Directory where the emitted output should go",
+              "type": "string"
+            }
+          },
+          "required": ["sourceDir", "buildDir"]
+        },
+        "permissions": {
+          "description": "Limits the permissions of the compiler",
+          "type": "object",
+          "properties": {
+            "cwd.read": {
+              "description": "The permission to read the name of the CWD",
+              "type": "boolean",
+              "default": false
+            },
+            "connections.create": {
+              "description": "The permission to fetch data from the web",
+              "type": "boolean",
+              "default": false
+            },
+            "shell.write": {
+              "description": "The permission to display text in the console",
+              "type": "boolean",
+              "default": true
+            },
+            "env.read": {
+              "description": "The permission to load variables from .env file",
+              "type": "boolean",
+              "default": false
+            },
+            "*": {
+              "description": "Toggle all the permissions (overwrites existing ones)",
+              "type": "boolean",
+              "default": false
+            }
+          }
+        },
+        "target": {
+          "description": "The language and version of the emitted output",
+          "type": "string",
+          "anyOf": [
+            {
+              "enum": ["node.js::es6"]
+            }
+          ]
+        }
+      },
+      "required": ["url", "tree", "permissions", "target"]
+    }
+  },
+  "required": ["metadata"]
+}

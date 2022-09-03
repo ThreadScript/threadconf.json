@@ -1,9 +1,8 @@
 {
   "json.schemas": [
     {
-      "fileMatch": ["schema.json"],
-      "url": "http://json-schema.org/draft-07/schema",
-      "schema": true
+      "fileMatch": ["schemas/*.json", "refs/*.json"],
+      "url": "http://json-schema.org/draft-07/schema"
     }
   ]
 }
